@@ -46,7 +46,8 @@ typedef struct __attribute__((packed)) {
 typedef struct __attribute__((packed)) {
 	char	 magic[3];    /* magic bytes */
 	uint8_t	 sector_size; /* sector size */
-	char	 name[16];    /* disk name */
+	char	 name[15];    /* disk name */
+	uint8_t	 lock;	      /* fs lock preventing multiple write actions */
 	uint32_t size;	      /* number of sectors the root dir takes */
 	uint32_t sector_allocation_map;	   /* allocation map sector number */
 	uint32_t sector_latest_allocation; /* latest allocated sector number */

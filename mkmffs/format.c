@@ -146,6 +146,8 @@ blockdev_format(const char *blockdev, const char *disk_name,
 	root_entry.magic[1] = 'C';
 	root_entry.magic[2] = 'K';
 
+	root_entry.lock = 0;
+
 	switch (sector_size) {
 	case 512:
 		root_entry.sector_size = MFFS_SECTOR_SIZE_512B;

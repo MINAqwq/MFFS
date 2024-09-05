@@ -35,7 +35,7 @@ The root contains filesystem metadata followed by other file entries.
 | ---- | ---- | ----------- |
 | Magic | char[3] | ascii string 'FCK' |
 | Sector Size | uint8_t | sector size |
-| Name | char[16] | ascii string containing a (disk) name |
+| Name | char[15] | ascii string containing a (disk) name |
 | Lock | uint8_t | lock preventing write access while a process writes to disk |
 | Size | uint32_t | number of sectors the root dir takes |
 | Allocation Map | uint32_t | sector number of the deallocation list |
