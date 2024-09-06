@@ -4,6 +4,10 @@
 #define MKMFFS_VERSION "_selfcomp"
 #endif
 
+#ifndef GIT_HASH
+#define GIT_HASH "no-git?"
+#endif
+
 /* ===================== format  ===================== */
 
 /* format a blockdevice to MFFS */

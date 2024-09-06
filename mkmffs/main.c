@@ -11,7 +11,7 @@ static uint32_t	   arg_sector_size = 512;
 [[noreturn]] static void
 print_help()
 {
-	fputs("mkmffs version " MKMFFS_VERSION
+	fputs("mkmffs version " MKMFFS_VERSION "-" GIT_HASH
 	      " \n> mkmffs (OPTIONS) [BLOCK_DEV]\n"
 	      "[================= <options> =================]\n"
 	      "| -n / --name           disk name             |\n"

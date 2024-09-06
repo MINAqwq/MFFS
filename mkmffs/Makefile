@@ -1,5 +1,7 @@
 CC     = clang
-CFLAGS = -std=c89 -Wall -Wextra -Wno-unused-function -O3 -fpic -march=native -DMKMFFS_VERSION=\"1.0\"
+CFLAGS = -std=c89 -Wall -Wextra -Wno-unused-function -O3 -fpic -march=native \
+	-DMKMFFS_VERSION=\"1\" \
+	-DGIT_HASH=\"$(shell git rev-parse --short HEAD)\"
 
 OBJ =    \
 format.o \
