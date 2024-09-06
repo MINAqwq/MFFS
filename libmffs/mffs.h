@@ -108,4 +108,10 @@ mffs_sector_size_from_enum(uint8_t sector_size)
 	}
 }
 
+static uint8_t
+mffs_is_magic_valid(const char *magic)
+{
+	return magic[0] == 'F' && magic[1] == 'C' && magic[2] == 'K';
+}
+
 #endif
