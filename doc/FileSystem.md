@@ -20,7 +20,6 @@ The Filesystem contains Entries and Data Sectors.
 It starts on sector 1 (sector 0 contains boot code) with a root entry containing file entries.
 File entries point to raw data while the data from entries that have the `Directory` attribute set will be interpreted as other file entries. 
 
-
 ## Directories
 
 As above mentioned, directories are just normal file entries.
@@ -40,6 +39,11 @@ The root contains filesystem metadata followed by other file entries.
 | Size | uint32_t | number of sectors the root dir takes |
 | Allocation Map | uint32_t | sector number of the deallocation list |
 | Latest Allocation | uint32_t | latest allocated sector number |
+
+
+The root directories file entry capacity depends on the block size, since it won't use [sector marker](#sector-marker). (This is because I'm to lazy to change and tbh I think it's just good practice to not bloat a root dir :3). The capacity for 512B Sectors should be 7.
+
+Adding sector markers for the root entry is at least on my TODO list.
 
 
 #### Sector Size
