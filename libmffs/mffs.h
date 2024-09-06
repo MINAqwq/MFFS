@@ -91,4 +91,21 @@ mffs_datasector_fileentry_capacity(uint8_t sector_size)
 	}
 }
 
+static size_t
+mffs_sector_size_from_enum(uint8_t sector_size)
+{
+	switch (sector_size) {
+	case MFFS_SECTOR_SIZE_512B:
+		return 512;
+	case MFFS_SECTOR_SIZE_1K:
+		return 1024;
+	case MFFS_SECTOR_SIZE_2K:
+		return 2048;
+	case MFFS_SECTOR_SIZE_4K:
+		return 4906;
+	default:
+		return 0;
+	}
+}
+
 #endif
