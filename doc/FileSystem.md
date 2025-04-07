@@ -7,8 +7,8 @@ Inspired by FAT and HPFS with "fuck your opinion" in mind.
 ## Some numbers
 
 - Max number of sectors: `2^32`
-- Userdata a sector can hold: `SECTOR_SIZE`
-- Max file size in bytes: `((2^32) * SECTOR_SIZE)`
+- Userdata a sector can hold: `SECTOR_SIZE - sizeof(SECTOR_MAKER)`
+- Max file size in bytes: `((2^32) * (SECTOR_SIZE - sizeof(SECTOR_MAKER))`
 
 In practice, you have to subtract the reserved sectors from `SECTOR_SIZE`.
 
@@ -34,7 +34,7 @@ The root contains filesystem metadata followed by other file entries.
 | Name              | char[15] | ascii string containing a (disk) name                       |
 | Lock              | uint8_t  | lock preventing write access while a process writes to disk |
 | Size              | uint32_t | number of sectors the root dir takes                        |
-| Allocation Map    | uint32_t | sector number of the deallocation list                      |
+| Allocation Map    | uint32_t | sector number where the allocation map lies                 |
 | Latest Allocation | uint32_t | latest allocated sector number                              |
 
 The root directories file entry capacity depends on the block size, since it won't use [sector marker](#sector-marker). (This is because I'm to lazy to change and tbh I think it's just good practice to not bloat a root dir :3). The capacity for 512B Sectors should be 7.
@@ -60,9 +60,9 @@ For example:
 1 1 1 0 0 0
 ```
 
-6 Sectors. 0, 1 and 2 are reserverd/used and 3, 4 and 5 are free.
+6 Sectors. 0, 1 and 2 are reserved/used and 3, 4 and 5 are free.
 
-As you can see in the example it thw lowest sector number is the MSB.
+As you can see in the example below, the lowest sector number is the MSB.
 
 ```
 Sec: 0 1 2 3 4 5 6 7  8 9 10 11 12 13 14 15
@@ -96,7 +96,7 @@ For example:
 1 1 1 0 0 0
 ```
 
-Let's say sector 2 was the last allocated sector (remember, we start counting at 0) and now we want to allocate a new sector. Instead of starting our search at GOD DAMN sector 0 , we start at sector 2 and we will find 3 immediatly.
+Let's say sector 2 was the last allocated sector (remember, we start counting at 0) and now we want to allocate a new sector. Instead of starting our search at GOD DAMN sector 0 , we start at sector 2 and we will find 3 immediately.
 
 ### File Entry
 
@@ -120,7 +120,7 @@ A FileEntry name starting with '\0' makes an entry invalid/free and the driver w
 | Soft Link | userspace: abstract path in entry links to another entry                        |
 | Hard link | driver: abstract path in entry links to another entry                           |
 | Code      | userspace: data is executable code                                              |
-| System    | driver: entry needs higher priviliges to get modified                           |
+| System    | driver: entry needs higher privileges to get modified                           |
 
 ## Sector Marker
 
